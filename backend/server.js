@@ -1,13 +1,15 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import dotenv from "dotenv";
 import connectDB from "./config/database.js";
 import authRoutes from "./routes/authRoutes.js";
 import watchlistRoutes from "./routes/watchlistRoutes.js";
+import searchRoutes from "./routes/searchRoutes.js";
 
-dotenv.config();
 connectDB();
 
 const app = express();
@@ -19,6 +21,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/watchlist", watchlistRoutes);
+app.use("/api/search", searchRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({ message: "Server is running" });
