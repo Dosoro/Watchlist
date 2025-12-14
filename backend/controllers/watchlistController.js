@@ -1,4 +1,4 @@
-import WatchlistItem from "../models/WatchlistItems";
+import WatchlistItem from "../models/WatchlistItems.js";
 
 // Create watchlist item
 const addToWatchlist = async (req, res) => {
@@ -18,7 +18,7 @@ const addToWatchlist = async (req, res) => {
       return res.status(400).json({ error: "Item already in your watchlist" });
     }
 
-    const watchlistItem = await watchlistItem.create({
+    const watchlistItem = await WatchlistItem.create({
       userId,
       tmdbId,
       mediaType,
@@ -30,7 +30,7 @@ const addToWatchlist = async (req, res) => {
 
     res.status(201).json({
       message: "Item added to watchlist",
-      itme: watchlistItem,
+      item: watchlistItem,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -77,7 +77,7 @@ const updateWatchlistItem = async (req, res) => {
       return res.status(400).json({ error: "Item not found" });
     }
 
-    if (item.userId.toString !== userId) {
+    if (item.userId.toString() !== userId) {
       return res
         .status(403)
         .json({ error: "Not authorized to update this item" });
@@ -105,7 +105,7 @@ const deleteWatchlistItem = async (req, res) => {
     const userId = req.userId;
     const { id } = req.params;
 
-    const item = await watchlistItem.findById(id);
+    const item = await WatchlistItem.findById(id);
     if (!item) {
       return res.status(400).json({ error: "Item not found" });
     }
@@ -116,7 +116,7 @@ const deleteWatchlistItem = async (req, res) => {
         .json({ error: "Not authorized to delete this item" });
     }
 
-    await item.findByIdAndDelete(id);
+    await WatchlistItem.findByIdAndDelete(id);
 
     res.json({
       message: "Item deleted",
