@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useMemo } from "react";
 import apiClient from "../api/apiClient.js";
 
 const AuthContext = createContext();
@@ -48,15 +48,17 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
   };
 
-  const value = {
-    user,
-    token,
-    register,
-    login,
-    logout,
-    isAuthenticated: !!token,
-  };
-
+  const value = useMemo(
+    () => ({
+      user,
+      token,
+      register,
+      login,
+      logout,
+      isAuthenticated: !!token,
+    }),
+    [user, token]
+  );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
