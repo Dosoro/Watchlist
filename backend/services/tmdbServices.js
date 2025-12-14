@@ -5,7 +5,6 @@ dotenv.config();
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
-console.log("TMDB_API_KEY loaded:", TMDB_API_KEY ? "Yes" : "No");
 
 const searchMedia = async (query, mediaType = "multi") => {
   try {
