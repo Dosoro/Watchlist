@@ -1,227 +1,225 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
 /* =========================
    Auth Page Components
    ========================= */
 @layer components {
+  /* Component layer - auth specific styles */
+  .auth-container {
+    /* Main container for auth pages */
+    min-height: 100vh;
+    /* Full screen height */
+    display: flex;
+    /* Flexbox layout */
+    align-items: center;
+    /* Center vertically */
+    justify-content: center;
+    /* Center horizontally */
+    padding: 20px;
+    /* Space on sides */
+    background: var(--color-background);
+    /* Purple gradient background */
+    animation: var(--animate-fade-in);
+    /* Fade in animation */
+  }
 
-    /* Component layer - auth specific styles */
-    .auth-container {
-        /* Main container for auth pages */
-        min-height: 100vh;
-        /* Full screen height */
-        display: flex;
-        /* Flexbox layout */
-        align-items: center;
-        /* Center vertically */
-        justify-content: center;
-        /* Center horizontally */
-        padding: 20px;
-        /* Space on sides */
-        background: var(--color-background);
-        /* Purple gradient background */
-        animation: var(--animate-fade-in);
-        /* Fade in animation */
-    }
+  .auth-box {
+    /* Form box container */
+    width: 100%;
+    /* Full width */
+    max-width: 420px;
+    /* Max width on desktop */
+    padding: 40px;
+    /* Internal padding */
+    background: var(--color-foreground);
+    /* Very light background */
+    border-radius: 12px;
+    /* Rounded corners */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    /* Deep shadow for depth */
+    animation: var(--animate-scale-up);
+    /* Scale up animation */
+  }
 
-    .auth-box {
-        /* Form box container */
-        width: 100%;
-        /* Full width */
-        max-width: 420px;
-        /* Max width on desktop */
-        padding: 40px;
-        /* Internal padding */
-        background: var(--color-foreground);
-        /* Very light background */
-        border-radius: 12px;
-        /* Rounded corners */
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        /* Deep shadow for depth */
-        animation: var(--animate-scale-up);
-        /* Scale up animation */
-    }
+  .auth-box h1 {
+    /* Heading */
+    margin-bottom: 30px;
+    /* Space below */
+    text-align: center;
+    /* Center text */
+    font-size: 32px;
+    /* Large heading */
+    font-weight: 700;
+    /* Bold */
+    color: var(--color-primary);
+    /* Dark text */
+    animation: var(--animate-fade-in-1);
+    /* Fade in with 0.2s delay */
+  }
 
-    .auth-box h1 {
-        /* Heading */
-        margin-bottom: 30px;
-        /* Space below */
-        text-align: center;
-        /* Center text */
-        font-size: 32px;
-        /* Large heading */
-        font-weight: 700;
-        /* Bold */
-        color: var(--color-primary);
-        /* Dark text */
-        animation: var(--animate-fade-in-1);
-        /* Fade in with 0.2s delay */
-    }
+  .error-message {
+    /* Error message styling */
+    margin-bottom: 20px;
+    /* Space below */
+    padding: 14px 16px;
+    /* Internal padding */
+    background: #fee5e5;
+    /* Light red background */
+    color: #c33;
+    /* Red text */
+    border-left: 4px solid #c33;
+    /* Red left border accent */
+    border-radius: 8px;
+    /* Rounded corners */
+    font-weight: 500;
+    /* Slightly bold */
+    animation: var(--animate-slide-in);
+    /* Slide in animation */
+  }
 
-    .error-message {
-        /* Error message styling */
-        margin-bottom: 20px;
-        /* Space below */
-        padding: 14px 16px;
-        /* Internal padding */
-        background: #fee5e5;
-        /* Light red background */
-        color: #c33;
-        /* Red text */
-        border-left: 4px solid #c33;
-        /* Red left border accent */
-        border-radius: 8px;
-        /* Rounded corners */
-        font-weight: 500;
-        /* Slightly bold */
-        animation: var(--animate-slide-in);
-        /* Slide in animation */
-    }
+  .form-group {
+    /* Form field wrapper */
+    margin-bottom: 20px;
+    /* Space between fields */
+    animation: var(--animate-fade-in-2);
+    /* Fade in with 0.4s delay */
+  }
 
-    .form-group {
-        /* Form field wrapper */
-        margin-bottom: 20px;
-        /* Space between fields */
-        animation: var(--animate-fade-in-2);
-        /* Fade in with 0.4s delay */
-    }
+  .form-group label {
+    /* Label styling */
+    display: block;
+    /* Full width */
+    margin-bottom: 8px;
+    /* Space below label */
+    font-size: 14px;
+    /* Small text */
+    font-weight: 600;
+    /* Semi-bold */
+    color: var(--color-primary);
+    /* Dark text */
+  }
 
-    .form-group label {
-        /* Label styling */
-        display: block;
-        /* Full width */
-        margin-bottom: 8px;
-        /* Space below label */
-        font-size: 14px;
-        /* Small text */
-        font-weight: 600;
-        /* Semi-bold */
-        color: var(--color-primary);
-        /* Dark text */
-    }
+  .form-group input {
+    /* Input field styling */
+    width: 100%;
+    /* Full width */
+    padding: 12px 14px;
+    /* Internal padding */
+    font-size: 16px;
+    /* Normal text */
+    border-radius: 8px;
+    /* Rounded corners */
+    border: 2px solid var(--color-secondary);
+    /* Light purple border */
+    background: white;
+    /* White background */
+    transition: 0.3s ease;
+    /* Smooth transition on state change */
+    font-family: var(--font-roboto);
+    /* Use Roboto font */
+  }
 
-    .form-group input {
-        /* Input field styling */
-        width: 100%;
-        /* Full width */
-        padding: 12px 14px;
-        /* Internal padding */
-        font-size: 16px;
-        /* Normal text */
-        border-radius: 8px;
-        /* Rounded corners */
-        border: 2px solid rgba(102, 126, 234, 0.2);
-        /* Light purple border */
-        background: white;
-        /* White background */
-        transition: 0.3s ease;
-        /* Smooth transition on state change */
-        font-family: var(--font-roboto);
-        /* Use Roboto font */
-    }
+  .form-group input:focus {
+    /* Input focus state */
+    outline: none;
+    /* Remove default outline */
+    border-color: var(--color-accent);
+    /* Purple border */
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    /* Subtle purple glow */
+  }
 
-    .form-group input:focus {
-        /* Input focus state */
-        outline: none;
-        /* Remove default outline */
-        border-color: var(--color-accent);
-        /* Purple border */
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        /* Subtle purple glow */
-    }
+  button[type="submit"] {
+    /* Submit button styling */
+    width: 100%;
+    /* Full width */
+    padding: 14px 16px;
+    /* Internal padding */
+    font-size: 16px;
+    /* Normal text */
+    font-weight: 600;
+    /* Semi-bold */
+    color: white;
+    /* White text */
+    background: var(--color-accent);
+    /* Purple background */
+    border: none;
+    /* No border */
+    border-radius: 8px;
+    /* Rounded corners */
+    transition: 0.3s ease;
+    /* Smooth transition */
+    cursor: pointer;
+    /* Pointer cursor */
+    animation: var(--animate-fade-in-3);
+    /* Fade in with 0.6s delay */
+  }
 
-    button[type="submit"] {
-        /* Submit button styling */
-        width: 100%;
-        /* Full width */
-        padding: 14px 16px;
-        /* Internal padding */
-        font-size: 16px;
-        /* Normal text */
-        font-weight: 600;
-        /* Semi-bold */
-        color: white;
-        /* White text */
-        background: var(--color-accent);
-        /* Purple background */
-        border: none;
-        /* No border */
-        border-radius: 8px;
-        /* Rounded corners */
-        transition: 0.3s ease;
-        /* Smooth transition */
-        cursor: pointer;
-        /* Pointer cursor */
-        animation: var(--animate-fade-in-3);
-        /* Fade in with 0.6s delay */
-    }
+  button[type="submit"]:hover:not(:disabled) {
+    /* Button hover state */
+    transform: translateY(-2px);
+    /* Move up slightly */
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    /* Add shadow */
+  }
 
-    button[type="submit"]:hover:not(:disabled) {
-        /* Button hover state */
-        transform: translateY(-2px);
-        /* Move up slightly */
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        /* Add shadow */
-    }
+  button[type="submit"]:disabled {
+    /* Button disabled state */
+    opacity: 0.6;
+    /* Make slightly transparent */
+    cursor: not-allowed;
+    /* Show not-allowed cursor */
+  }
 
-    button[type="submit"]:disabled {
-        /* Button disabled state */
-        opacity: 0.6;
-        /* Make slightly transparent */
-        cursor: not-allowed;
-        /* Show not-allowed cursor */
-    }
+  .auth-box p {
+    /* Paragraph text at bottom */
+    margin-top: 20px;
+    /* Space above */
+    text-align: center;
+    /* Center text */
+    font-size: 14px;
+    /* Small text */
+    color: var(--color-secondary);
+    /* Medium gray text */
+    animation: var(--animate-fade-in-4);
+    /* Fade in with 0.8s delay */
+  }
 
-    .auth-box p {
-        /* Paragraph text at bottom */
-        margin-top: 20px;
-        /* Space above */
-        text-align: center;
-        /* Center text */
-        font-size: 14px;
-        /* Small text */
-        color: var(--color-secondary);
-        /* Medium gray text */
-        animation: var(--animate-fade-in-4);
-        /* Fade in with 0.8s delay */
-    }
+  .auth-box a {
+    /* Link styling */
+    color: var(--color-accent);
+    /* Purple text */
+    font-weight: 600;
+    /* Semi-bold */
+    text-decoration: none;
+    /* No underline */
+    transition: 0.3s ease;
+    /* Smooth transition */
+  }
 
-    .auth-box a {
-        /* Link styling */
-        color: var(--color-accent);
-        /* Purple text */
-        font-weight: 600;
-        /* Semi-bold */
-        text-decoration: none;
-        /* No underline */
-        transition: 0.3s ease;
-        /* Smooth transition */
-    }
-
-    .auth-box a:hover {
-        /* Link hover state */
-        text-decoration: underline;
-        /* Add underline */
-        opacity: 0.8;
-        /* Slightly transparent */
-    }
+  .auth-box a:hover {
+    /* Link hover state */
+    text-decoration: underline;
+    /* Add underline */
+    opacity: 0.8;
+    /* Slightly transparent */
+  }
 }
 
 /* =========================
    Mobile Responsive
    ========================= */
 @media (max-width: 600px) {
-
-    /* On screens smaller than 600px */
-    @layer components {
-        .auth-box {
-            padding: 30px;
-            /* Less padding on mobile */
-        }
-
-        .auth-box h1 {
-            font-size: 28px;
-            /* Smaller heading on mobile */
-        }
+  /* On screens smaller than 600px */
+  @layer components {
+    .auth-box {
+      padding: 30px;
+      /* Less padding on mobile */
     }
+
+    .auth-box h1 {
+      font-size: 28px;
+      /* Smaller heading on mobile */
+    }
+  }
 }
