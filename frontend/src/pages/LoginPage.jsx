@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
-import "../styles/AuthPages.css";
+import {
+  IconAlertTriangle,
+  IconVideo,
+  IconVideoOff,
+} from "@tabler/icons-react";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -29,47 +33,111 @@ function LoginPage() {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-box">
-        <h1>Login</h1>
+    <div className="min-h-screen flex items-center justify-center bg-background px-4 animate-fade-in">
+      <div className="w-full max-w-xl rounded-xl bg-foreground p-10 shadow-card">
+        <h1 className="mb-8 text-center text-3xl font-bold ">Login</h1>
 
-        {error && <div className="error-message">{error}</div>}
-
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+        {error && (
+          <div className="error" role="alert" aria-live="assertive">
+            <IconAlertTriangle className="h-5 w-5 text-red-700" />
+            {error}
           </div>
+        )}
 
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              type="button"
-              className="password-toggle"
-              onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? "Hide password" : "Show password"}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="text-sm font-semibold text-primary "
             >
-              {showPassword ? "👁" : "🙈"}
-            </button>
+              Email:
+            </label>
+            <div className="relative">
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="input-base"
+              />
+            </div>
           </div>
-          <button type="submit" disabled={loading}>
+
+          <div className="space-y-2">
+            <label
+              htmlFor="password"
+              className="text-sm font-semibold text-primary "
+            >
+              Password:
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="input-base"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                className="
+                absolute
+                right-3
+                top-1/2
+                -translate-y-1/2
+                text-secondary
+                hover:text-accent
+                transition
+                cursor-pointer
+                "
+              >
+                {showPassword ? (
+                  <IconVideoOff className="h-6 w-6 hover:h-7 hover:w-7 duration-300" />
+                ) : (
+                  <IconVideo className="h-6 w-6 hover:h-7 hover:w-7 duration-300" />
+                )}
+              </button>
+            </div>
+          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="
+            w-full
+            rounded-lg
+            bg-accent
+            px-4
+            py-3
+            font-bold
+            text-foreground
+            transition-all
+            duration-300
+            ease-out
+            hover:-translate-y-0.5
+            hover:shadow-lg    
+            disabled:opacity-60
+            disabled:cursor-not-allowed
+            cursor-pointer
+          "
+          >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-        <p>
-          Don't have an account? <a href="/register"> Register here</a>
+        <p className=" font-normal text-secondary mt-6 flex items-center justify-center ">
+          Don't have an account?&nbsp;{" "}
+          <a
+            href="/register"
+            className="font-semibold
+            text-accent          
+            inline-block
+            hover:underline"
+          >
+            {" "}
+            Register here
+          </a>
         </p>
       </div>
     </div>

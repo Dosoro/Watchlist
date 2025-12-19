@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
-import "../styles/AuthPages.css";
+import {
+  IconAlertTriangle,
+  IconVideo,
+  IconVideoOff,
+} from "@tabler/icons-react";
 
 function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -11,6 +15,7 @@ function RegisterPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const { register } = useAuth();
 
@@ -29,9 +34,7 @@ function RegisterPage() {
     }
 
     setLoading(true);
-
     const result = await register(email, password, confirmPassword);
-
     setLoading(false);
 
     if (result.success) {
@@ -42,75 +45,141 @@ function RegisterPage() {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-box">
-        <h1>Register</h1>
+    <div className="min-h-screen flex items-center justify-center bg-background px-4 animate-fade-in">
+      <div className="w-full max-w-xl rounded-xl bg-foreground p-10 shadow-card animate-scale-up">
+        <h1 className="mb-8 text-center text-3xl font-bold">Register</h1>
 
-        {error && <div className="error-message">{error}</div>}
+        {error && (
+          <div className="error mb-6" role="alert">
+            <IconAlertTriangle className="h-5 w-5" />
+            {error}
+          </div>
+        )}
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Email */}
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-primary">Email:</label>
             <input
               type="email"
-              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="input-base"
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <div className="password-input-wrapper">
+          {/* Password */}
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-primary">
+              Password:
+            </label>
+            <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="input-base"
               />
               <button
-                className="password-toggle"
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? "Hide password" : "Show Password"}
+                className="
+                  absolute
+                  right-3
+                  top-1/2
+                  -translate-y-1/2
+                  text-secondary
+                  hover:text-accent
+                  transition
+                "
               >
-                {showPassword ? "👁️" : "👁️‍🗨️"}
+                {showPassword ? (
+                  <IconVideoOff className="h-6 w-6" />
+                ) : (
+                  <IconVideo className="h-6 w-6" />
+                )}
               </button>
             </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Password:</label>
-            <div className="password-input-wrapper">
+          {/* Confirm Password */}
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-primary">
+              Confirm Password:
+            </label>
+            <div className="relative">
               <input
                 type={showConfirmPassword ? "text" : "password"}
-                id="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
+                className="input-base"
               />
               <button
-                className="password-toggle"
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                aria-label={
-                  showConfirmPassword ? "Hide password" : "Show Password"
-                }
+                className="
+                  absolute
+                  right-3
+                  top-1/2
+                  -translate-y-1/2
+                  text-secondary
+                  hover:text-accent
+                  transition
+                "
               >
-                {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
+                {showConfirmPassword ? (
+                  <IconVideoOff className="h-6 w-6" />
+                ) : (
+                  <IconVideo className="h-6 w-6" />
+                )}
               </button>
             </div>
           </div>
 
-          <button type="submit" disabled={loading}>
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="
+              w-full
+              rounded-lg
+              bg-accent
+              px-4
+              py-3
+              font-bold
+              text-foreground
+
+              transition-all
+              duration-200
+              ease-out
+
+              hover:-translate-y-0.5
+              hover:shadow-lg
+
+              disabled:opacity-60
+              disabled:cursor-not-allowed
+            "
+          >
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
 
-        <p>
-          Already have an account? <a href="/login">Login here</a>
+        <p className="mt-6 flex justify-center text-secondary">
+          Already have an account?&nbsp;
+          <a
+            href="/login"
+            className="
+              inline-block
+              font-semibold
+              text-accent
+              hover:underline
+            "
+          >
+            Login here
+          </a>
         </p>
       </div>
     </div>
