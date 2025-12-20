@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
+import { Link } from "react-router-dom";
 import {
   IconAlertTriangle,
   IconVideo,
@@ -47,7 +48,9 @@ function RegisterPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4 animate-fade-in">
       <div className="w-full max-w-xl rounded-xl bg-foreground p-10 shadow-card animate-scale-up">
-        <h1 className="mb-8 text-center text-3xl font-bold">Register</h1>
+        <h1 className="mb-8 text-center text-3xl font-bold">
+          Create your account
+        </h1>
 
         {error && (
           <div className="error mb-6" role="alert">
@@ -131,9 +134,9 @@ function RegisterPage() {
                 "
               >
                 {showConfirmPassword ? (
-                  <IconVideoOff className="h-6 w-6" />
+                  <IconVideoOff className="h-6 w-6 hover:scale-110" />
                 ) : (
-                  <IconVideo className="h-6 w-6" />
+                  <IconVideo className="h-6 w-6 hover:scale-110" />
                 )}
               </button>
             </div>
@@ -169,17 +172,12 @@ function RegisterPage() {
 
         <p className="mt-6 flex justify-center text-secondary">
           Already have an account?&nbsp;
-          <a
-            href="/login"
-            className="
-              inline-block
-              font-semibold
-              text-accent
-              hover:underline
-            "
+          <Link
+            to="/login"
+            className="text-accent hover:underline font-semibold inline-block"
           >
-            Login here
-          </a>
+            Register here
+          </Link>
         </p>
       </div>
     </div>

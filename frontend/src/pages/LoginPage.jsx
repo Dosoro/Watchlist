@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
+import { Link } from "react-router-dom";
 import {
   IconAlertTriangle,
   IconVideo,
@@ -12,7 +13,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -95,9 +96,9 @@ function LoginPage() {
                 "
               >
                 {showPassword ? (
-                  <IconVideoOff className="h-6 w-6 hover:h-7 hover:w-7 duration-300" />
+                  <IconVideoOff className="h-6 w-6 hover:scale-110 duration-300" />
                 ) : (
-                  <IconVideo className="h-6 w-6 hover:h-7 hover:w-7 duration-300" />
+                  <IconVideo className="h-6 w-6 hover:scale-110 duration-300" />
                 )}
               </button>
             </div>
@@ -127,17 +128,13 @@ function LoginPage() {
           </button>
         </form>
         <p className=" font-normal text-secondary mt-6 flex items-center justify-center ">
-          Don't have an account?&nbsp;{" "}
-          <a
-            href="/register"
-            className="font-semibold
-            text-accent          
-            inline-block
-            hover:underline"
+          Don't have an account?&nbsp;
+          <Link
+            to="/register"
+            className="text-accent hover:underline font-semibold inline-block"
           >
-            {" "}
             Register here
-          </a>
+          </Link>
         </p>
       </div>
     </div>
