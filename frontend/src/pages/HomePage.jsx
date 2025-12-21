@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
 import { useEffect, useState } from "react";
-import { useTheme } from "../context/ThemeContext.jsx";
+import { useTheme } from "../hooks/useTheme.js";
 import {
   IconArrowRight,
   IconMovie,
