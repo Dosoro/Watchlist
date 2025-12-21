@@ -9,6 +9,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { useAuth } from "./hooks/useAuth";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
+import AuthPage from "./pages/AuthPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import SearchPage from "./pages/SearchPage.jsx";
 import WatchlistPage from "./pages/WatchlistPage.jsx";
@@ -27,6 +28,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/authenticate" element={<AuthPage />} />
           <Route
             path="/search"
             element={

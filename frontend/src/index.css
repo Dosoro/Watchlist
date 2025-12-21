@@ -1,17 +1,11 @@
 /* ======================================================
-   External Fonts
-   ====================================================== */
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
-
-/* ======================================================
    Tailwind Core (v4)
-   This single line is the whole framework. Wild.
    ====================================================== */
 @import "tailwindcss";
 
 /* ======================================================
-   Tailwind Theme Tokens (Semantic layer)
-   These are what Tailwind utilities actually consume.
+   Theme Tokens (Semantic layer)
+   Utilities consume THESE, not raw values
    ====================================================== */
 @theme {
   /* Colors */
@@ -30,11 +24,12 @@
 
 /* ======================================================
    Base Layer
-   Raw tokens, globals, browser behavior
+   Globals, tokens, browser behavior
    ====================================================== */
 @layer base {
+
   /* --------------------------------------------------
-     Raw Color Values (do NOT use directly)
+     Raw Color Tokens (never use directly)
      -------------------------------------------------- */
   :root {
     --background: 39 44% 87%;
@@ -44,9 +39,24 @@
     --accent: 21 87% 55%;
   }
 
+  .dark {
+    --background: 220 15% 10%;
+    --foreground: 220 15% 95%;
+    --primary: 220 15% 90%;
+    --secondary: 220 10% 65%;
+    --accent: 210 90% 60%;
+    --shadow-card: 0 8px 20px -4px rgba(0, 0, 0, 0.6);
+  }
+
   /* --------------------------------------------------
-     Document Behavior
+     Document layout sanity
      -------------------------------------------------- */
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
   html {
     @apply scroll-smooth;
     scrollbar-color: hsl(var(--primary)) hsl(var(--background));
@@ -54,7 +64,7 @@
   }
 
   /* --------------------------------------------------
-     Typography & Body Defaults
+     Typography defaults
      -------------------------------------------------- */
   body,
   input,
@@ -69,7 +79,7 @@
   }
 
   /* --------------------------------------------------
-     Scrollbar Styling (WebKit)
+     Scrollbars (WebKit)
      -------------------------------------------------- */
   ::-webkit-scrollbar {
     width: 12px;
@@ -90,71 +100,88 @@
   }
 
   /* --------------------------------------------------
-     Text Selection
+     Text selection
      -------------------------------------------------- */
   ::selection {
     background-color: hsl(var(--accent) / 0.5);
     color: hsl(var(--secondary));
   }
-
-  ::-moz-selection {
-    background-color: hsl(var(--accent));
-    color: hsl(var(--secondary));
-  }
 }
 
 /* ======================================================
-   Animations (Keyframes only)
-   These do nothing until utilities use them
+   Animations (keyframes only)
    ====================================================== */
 @keyframes fade-in {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
+
   to {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
   }
 }
 
 @keyframes scale-up {
   from {
-    transform: scale(0.95);
     opacity: 0;
+    transform: scale(0.95);
   }
+
   to {
-    transform: scale(1);
     opacity: 1;
+    transform: scale(1);
   }
 }
 
 @keyframes slide-in {
   from {
-    transform: translateY(20px);
     opacity: 0;
+    transform: translateY(20px);
   }
+
   to {
-    transform: translateY(0);
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
 /* ======================================================
    Component Layer
-   Reusable UI patterns (not one-offs)
+   Reusable UI patterns
    ====================================================== */
 @layer components {
   .input-base {
-    @apply w-full px-4 py-3 rounded-lg
-           bg-white text-primary
-           ring-2 ring-secondary
-           focus:outline-none focus:ring-accent
-           transition;
+    @apply w-full rounded-lg bg-foreground px-4 py-3 text-primary ring-2 ring-secondary transition focus:outline-none focus:ring-accent;
   }
 
   .error {
-    @apply flex items-start gap-3
-           rounded-md border-l-4 border-red-500
-           bg-red-100 p-4 text-red-700;
+    @apply flex items-start gap-3 rounded-md border-l-4 border-red-500 bg-red-100 p-4 text-red-700;
+  }
+
+  .button-primary {
+    @apply flex items-center gap-3 rounded-lg bg-accent px-10 py-5 text-lg md:text-xl font-bold text-foreground shadow-card transition hover:-translate-y-1 hover:shadow-lg justify-center;
+  }
+
+  .button-secondary {
+    @apply flex items-center justify-center gap-2 rounded-lg border-2 border-secondary/20 px-4 py-3 font-semibold text-primary transition hover:border-accent hover:bg-foreground/50 hover:text-accent;
+  }
+
+  .feature-card {
+    @apply flex flex-col items-center gap-4 rounded-xl border-2 border-secondary/20 bg-foreground p-8 transition hover:border-accent hover:shadow-card;
   }
 }
 
@@ -163,34 +190,39 @@
    Atomic helpers only
    ====================================================== */
 @layer utilities {
-  /* Animation Utilities */
   .animate-fade-in {
-    animation: fade-in 0.7s ease-out forwards;
+    animation: fade-in 0.5s ease-out forwards;
+  }
+
+  .animate-fade-out {
+    animation: fade-out 0.5s ease-in forwards;
   }
 
   .animate-scale-up {
-    animation: scale-up 0.9s ease-out forwards;
+    animation: scale-up 0.6s ease-out forwards;
   }
 
   .animate-slide-in {
-    animation: slide-in 0.9s ease-out forwards;
+    animation: slide-in 0.6s ease-out forwards;
   }
 
-  /* Transition Helpers */
   .transition-width {
     transition-property: width;
+    transition-duration: 300ms;
     transition-timing-function: ease;
   }
 }
 
 /* ======================================================
    Accessibility
-   Respect reduced-motion preferences
    ====================================================== */
+/*
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in,
+  .animate-fade-out,
   .animate-scale-up,
   .animate-slide-in {
     animation: none;
   }
 }
+*/
