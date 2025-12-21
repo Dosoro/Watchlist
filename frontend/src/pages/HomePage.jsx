@@ -1,7 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
 import { useEffect, useState } from "react";
-import { IconArrowRight, IconMovie } from "@tabler/icons-react";
+import { IconArrowRight, IconMovie, IconLogout } from "@tabler/icons-react";
 
 const words = ["want to watch", "watched", "thought"];
 
@@ -36,8 +36,40 @@ function HomePage() {
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, wordIndex]);
 
-  if (isAuthenticated) return null;
+  const handleLogout = () => {
+    logout();
+    navigate("/authenticate");
+  };
 
+  // If logged in - show simple logout button
+  if (isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-4">
+        <div className="flex flex-col items-center gap-8 text-center">
+          <div className="rounded-2xl bg-accent p-5 shadow-card">
+            <IconMovie className="h-20 w-20 text-foreground" />
+          </div>
+
+          <div className="space-y-4">
+            <h1 className="text-4xl font-bold text-primary">Welcome Back!</h1>
+            <p className="text-lg text-secondary">
+              You're logged in and ready to explore.
+            </p>
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 rounded-lg bg-red-500 px-8 py-4 text-lg font-bold text-white shadow-card transition hover:-translate-y-1 hover:shadow-lg"
+          >
+            <IconLogout className="h-6 w-6" />
+            Logout
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // If not logged in - show full hero page
   return (
     <div className="min-h-screen bg-background">
       <div className="flex min-h-screen flex-col items-center justify-center px-4 py-20 animate-fade-in">
@@ -110,7 +142,7 @@ function HomePage() {
               </div>
               <h3 className="text-lg font-bold text-primary">Track</h3>
               <p className="text-sm text-secondary">
-                Rate, review, and track what you’ve watched
+                Rate, review, and track what you've watched
               </p>
             </div>
           </div>
