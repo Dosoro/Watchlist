@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 import { useAuth } from "./hooks/useAuth";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
@@ -22,33 +23,35 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/authenticate" element={<AuthPage />} />
-          <Route
-            path="/search"
-            element={
-              <ProtectedRoute>
-                <SearchPage />
-              </ProtectedRoute>
-            }
-          />{" "}
-          <Route
-            path="/watchlist"
-            element={
-              <ProtectedRoute>
-                <WatchlistPage />
-              </ProtectedRoute>
-            }
-          />{" "}
-        </Routes>
-        <AuthListener />
-      </AuthProvider>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/authenticate" element={<AuthPage />} />
+            <Route
+              path="/search"
+              element={
+                <ProtectedRoute>
+                  <SearchPage />
+                </ProtectedRoute>
+              }
+            />{" "}
+            <Route
+              path="/watchlist"
+              element={
+                <ProtectedRoute>
+                  <WatchlistPage />
+                </ProtectedRoute>
+              }
+            />{" "}
+          </Routes>
+          <AuthListener />
+        </AuthProvider>
+      </Router>
+    </ThemeProvider>
   );
 }
 

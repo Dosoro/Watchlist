@@ -39,13 +39,13 @@
     --accent: 21 87% 55%;
   }
 
-  .dark {
+  /* Dark mode - add to html.dark */
+  html.dark {
     --background: 220 15% 10%;
-    --foreground: 220 15% 95%;
-    --primary: 220 15% 90%;
-    --secondary: 220 10% 65%;
-    --accent: 210 90% 60%;
-    --shadow-card: 0 8px 20px -4px rgba(0, 0, 0, 0.6);
+    --foreground: 220 15% 22%;
+    --primary: 220 13% 95%;
+    --secondary: 220 13% 70%;
+    --accent: 21 87% 55%;
   }
 
   /* --------------------------------------------------
