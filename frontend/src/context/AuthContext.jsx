@@ -1,10 +1,10 @@
-import { createContext, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
+import { AuthContext } from "./auth.js";
 import apiClient from "../api/apiClient.js";
-
-const AuthContext = createContext();
+import { TOKEN_KEY } from "../config/constants.js";
 
 const initializeToken = () => {
-  return localStorage.getItem("token");
+  return localStorage.getItem(TOKEN_KEY);
 };
 
 export const AuthProvider = ({ children }) => {
@@ -18,12 +18,16 @@ export const AuthProvider = ({ children }) => {
         password,
         confirmPassword,
       });
-      setToken(response.data.token);
-      setUser(response.data.user);
-      localStorage.setItem("token", response.data.token);
+
+      const { token: newToken, user: newUser } = response.data.data;
+      setToken(newToken);
+      setUser(newUser);
+      localStorage.setItem(TOKEN_KEY, newToken);
+
       return { success: true };
     } catch (error) {
-      return { success: false, error: error.response?.data?.error };
+      const errorMsg = error.response?.data?.message || "Registration failed";
+      return { success: false, error: errorMsg };
     }
   };
 
@@ -33,33 +37,36 @@ export const AuthProvider = ({ children }) => {
         email,
         password,
       });
-      setToken(response.data.token);
-      setUser(response.data.user);
-      localStorage.setItem("token", response.data.token);
+
+      const { token: newToken, user: newUser } = response.data.data;
+      setToken(newToken);
+      setUser(newUser);
+      localStorage.setItem(TOKEN_KEY, newToken);
+
       return { success: true };
     } catch (error) {
-      return { success: false, error: error.response?.data?.error };
+      const errorMsg = error.response?.data?.message || "Login failed";
+      return { success: false, error: errorMsg };
     }
   };
 
   const logout = () => {
     setToken(null);
     setUser(null);
-    localStorage.removeItem("token");
+    localStorage.removeItem(TOKEN_KEY);
   };
 
   const value = useMemo(
     () => ({
       user,
       token,
+      isAuthenticated: !!token,
       register,
       login,
       logout,
-      isAuthenticated: !!token,
     }),
     [user, token]
   );
+
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
-export default AuthContext;
