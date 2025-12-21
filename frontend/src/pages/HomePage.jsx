@@ -70,10 +70,7 @@ function HomePage() {
     <div className="min-h-screen bg-background">
       <div className="flex min-h-screen flex-col items-center justify-center px-4 py-20 animate-fade-in">
         <div className="flex max-w-5xl flex-col items-center gap-16 text-center">
-          <button
-            onClick={() => navigate(ROUTES.HOME)}
-            className="rounded-2xl bg-accent p-5 shadow-card transition hover:-translate-y-1 hover:shadow-lg"
-          >
+          <button onClick={() => navigate(ROUTES.HOME)} className="logo-lg">
             <IconMovie className="h-20 w-20 text-foreground" />
           </button>
 

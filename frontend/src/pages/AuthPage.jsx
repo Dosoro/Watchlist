@@ -77,14 +77,14 @@ function AuthPage() {
           onClick={() => navigate("/")}
           className="mb-12 flex flex-col items-center gap-3 transition hover:opacity-80"
         >
-          <div className="rounded-xl bg-accent p-3">
-            <IconMovie className="md:h-40 md:w-40 sm:h-40 sm:w-40 text-foreground w-20 h-20" />
+          <div className="logo-md">
+            <IconMovie className="h-16 w-16 text-foreground" />
           </div>
           <h2 className="text-4xl font-bold text-primary">Watchlist</h2>
         </button>
       </div>
 
-      <div className="w-full max-w-md rounded-2xl bg-foreground p-8 shadow-card animate-scale-up">
+      <div className="form-box animate-scale-up">
         {/* Header - smooth transition */}
         <div
           key={isLogin ? "login" : "register"}
@@ -103,20 +103,20 @@ function AuthPage() {
         {/* Error message - smooth transition */}
         {error && (
           <div
-            className="mb-6 flex items-center gap-3 rounded-lg bg-red-50 border border-red-200 p-4 animate-fade-in"
+            className="error mb-6 animate-fade-in"
             role="alert"
             aria-live="assertive"
           >
-            <IconAlertTriangle className="h-5 w-5 text-red-600 shrink-0" />
-            <p className="text-sm text-red-700">{error}</p>
+            <IconAlertTriangle className="h-5 w-5 shrink-0" />
+            <p className="text-sm">{error}</p>
           </div>
         )}
 
         {/* Form with smooth transitions */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Email field */}
-          <div className="space-y-2 animate-fade-in">
-            <label className="text-sm font-semibold text-primary">Email</label>
+          <div className="input-wrapper animate-fade-in">
+            <label className="label-input">Email</label>
             <input
               type="email"
               value={email}
@@ -128,10 +128,8 @@ function AuthPage() {
           </div>
 
           {/* Password field */}
-          <div className="space-y-2 animate-fade-in">
-            <label className="text-sm font-semibold text-primary">
-              Password
-            </label>
+          <div className="input-wrapper animate-fade-in">
+            <label className="label-input">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -158,10 +156,8 @@ function AuthPage() {
 
           {/* Confirm password field (register only) - smooth appear/disappear */}
           {!isLogin && (
-            <div className="space-y-2 animate-fade-in">
-              <label className="text-sm font-semibold text-primary">
-                Confirm Password
-              </label>
+            <div className="input-wrapper animate-fade-in">
+              <label className="label-input">Confirm Password</label>
               <div className="relative">
                 <input
                   type={showConfirmPassword ? "text" : "password"}

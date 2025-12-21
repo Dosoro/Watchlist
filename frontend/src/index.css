@@ -1,4 +1,9 @@
 /* ======================================================
+   External Fonts
+   ====================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
+/* ======================================================
    Tailwind Core (v4)
    ====================================================== */
 @import "tailwindcss";
@@ -164,24 +169,79 @@
    Reusable UI patterns
    ====================================================== */
 @layer components {
+
+  /* Logo Containers */
+  .logo-lg {
+    @apply rounded-2xl bg-accent p-5 shadow-card transition hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .logo-md {
+    @apply rounded-lg bg-accent p-3 shadow-card;
+  }
+
+  /* Form Container */
+  .form-box {
+    @apply w-full max-w-xl rounded-2xl bg-foreground p-8 shadow-card;
+  }
+
+  /* Card with Hover Effects */
+  .card-hover {
+    @apply rounded-xl border-2 border-secondary/20 bg-foreground p-8 transition hover:border-accent hover:shadow-card;
+  }
+
+  /* Input Styling with Dark Mode Support */
   .input-base {
     @apply w-full rounded-lg bg-foreground px-4 py-3 text-primary ring-2 ring-secondary transition focus:outline-none focus:ring-accent;
   }
 
-  .error {
-    @apply flex items-start gap-3 rounded-md border-l-4 border-red-500 bg-red-100 p-4 text-red-700;
+  html.dark .input-base {
+    @apply bg-foreground/80;
   }
 
+  /* Input Wrapper & Label */
+  .input-wrapper {
+    @apply space-y-2;
+  }
+
+  .label-input {
+    @apply text-sm font-semibold text-primary;
+  }
+
+  /* Error Message with Dark Mode Support */
+  .error {
+    @apply flex items-center gap-3 rounded-lg border-l-4 border-red-500 bg-red-100 p-4 text-red-700;
+  }
+
+  html.dark .error {
+    @apply bg-red-900/30 border-red-600 text-red-400;
+  }
+
+  /* Password Toggle Button */
+  .password-toggle-btn {
+    @apply absolute right-3 top-1/2 -translate-y-1/2 text-secondary hover:text-accent transition cursor-pointer;
+  }
+
+  /* Button Styles */
   .button-primary {
-    @apply flex items-center gap-3 rounded-lg bg-accent px-10 py-5 text-lg md:text-xl font-bold text-foreground shadow-card transition hover:-translate-y-1 hover:shadow-lg justify-center;
+    @apply flex items-center gap-3 rounded-lg bg-accent px-10 py-5 text-lg md:text-xl font-bold text-foreground shadow-card transition hover:-translate-y-1 hover:shadow-lg justify-center disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .button-secondary {
     @apply flex items-center justify-center gap-2 rounded-lg border-2 border-secondary/20 px-4 py-3 font-semibold text-primary transition hover:border-accent hover:bg-foreground/50 hover:text-accent;
   }
 
+  /* Feature Card */
   .feature-card {
     @apply flex flex-col items-center gap-4 rounded-xl border-2 border-secondary/20 bg-foreground p-8 transition hover:border-accent hover:shadow-card;
+  }
+
+  /* Typography Components */
+  .section-title {
+    @apply text-3xl font-bold text-primary;
+  }
+
+  .description-text {
+    @apply text-lg text-secondary;
   }
 }
 
@@ -216,8 +276,8 @@
 /* ======================================================
    Accessibility
    ====================================================== */
-/*
 @media (prefers-reduced-motion: reduce) {
+
   .animate-fade-in,
   .animate-fade-out,
   .animate-scale-up,
@@ -225,4 +285,3 @@
     animation: none;
   }
 }
-*/
