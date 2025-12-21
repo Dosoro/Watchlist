@@ -1,5 +1,5 @@
 import { IconLoader2, IconMovie } from "@tabler/icons-react";
-import { SIZES } from "../config/constants.js";
+import { SIZES } from "../../config/constants.js";
 
 function LoadingSpinner({ fullScreen = false, size = "default" }) {
   const sizeClasses = {

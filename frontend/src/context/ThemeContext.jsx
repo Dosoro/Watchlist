@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ThemeContext } from "./theme.js"; // Import from separate file
+import { ThemeContext } from "./theme.js";
 
 export function ThemeProvider({ children }) {
   const [isDark, setIsDark] = useState(() => {
@@ -11,12 +11,23 @@ export function ThemeProvider({ children }) {
   useEffect(() => {
     const html = document.documentElement;
 
-    if (isDark) {
-      html.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+    // Check if browser supports View Transitions API
+    const updateTheme = () => {
+      if (isDark) {
+        html.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        html.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      }
+    };
+
+    // Use View Transitions API if available for smooth transitions
+    if (document.startViewTransition) {
+      document.startViewTransition(() => updateTheme());
     } else {
-      html.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      // Fallback for browsers without View Transitions API
+      updateTheme();
     }
   }, [isDark]);
 

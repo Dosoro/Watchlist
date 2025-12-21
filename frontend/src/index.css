@@ -9,7 +9,24 @@
 @import "tailwindcss";
 
 /* ======================================================
+   View Transitions for Smooth Theme Changes
+   ====================================================== */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* ======================================================
    Theme Tokens (Semantic layer)
+   Utilities consume THESE, not raw values
    ====================================================== */
 @theme {
   /* Colors */
@@ -28,8 +45,13 @@
 
 /* ======================================================
    Base Layer
+   Globals, tokens, browser behavior
    ====================================================== */
 @layer base {
+
+  /* --------------------------------------------------
+     Raw Color Tokens
+     -------------------------------------------------- */
   :root {
     --background: 39 44% 87%;
     --foreground: 37 17% 96%;
@@ -38,6 +60,7 @@
     --accent: 21 87% 55%;
   }
 
+  /* Dark mode */
   html.dark {
     --background: 220 15% 10%;
     --foreground: 220 15% 22%;
@@ -46,6 +69,9 @@
     --accent: 21 87% 55%;
   }
 
+  /* --------------------------------------------------
+     Document layout sanity
+     -------------------------------------------------- */
   html,
   body,
   #root {
@@ -58,6 +84,19 @@
     scrollbar-width: thin;
   }
 
+  /* --------------------------------------------------
+     Smooth theme transitions for ALL elements
+     -------------------------------------------------- */
+  * {
+    transition: background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  /* --------------------------------------------------
+     Typography defaults
+     -------------------------------------------------- */
   body,
   input,
   textarea,
@@ -70,6 +109,9 @@
     color: var(--color-primary);
   }
 
+  /* --------------------------------------------------
+     Scrollbars (WebKit)
+     -------------------------------------------------- */
   ::-webkit-scrollbar {
     width: 12px;
   }
@@ -88,6 +130,9 @@
     background-color: hsl(var(--primary) / 0.8);
   }
 
+  /* --------------------------------------------------
+     Text selection
+     -------------------------------------------------- */
   ::selection {
     background-color: hsl(var(--accent) / 0.5);
     color: hsl(var(--secondary));
@@ -95,98 +140,7 @@
 }
 
 /* ======================================================
-   Component Layer
-   ====================================================== */
-@layer components {
-
-  /* Logo Containers */
-  .logo-lg {
-    @apply rounded-2xl bg-accent p-5 shadow-card transition hover:-translate-y-1 hover:shadow-lg;
-  }
-
-  .logo-md {
-    @apply rounded-lg bg-accent p-3 shadow-card;
-  }
-
-  /* Form Container */
-  .form-box {
-    @apply w-full max-w-xl rounded-2xl bg-foreground p-8 shadow-card;
-  }
-
-  /* Card with Hover Effects */
-  .card-hover {
-    @apply rounded-xl border-2 border-secondary/20 bg-foreground p-8 transition hover:border-accent hover:shadow-card;
-  }
-
-  /* Input Styling */
-  .input-base {
-    @apply w-full rounded-lg bg-foreground px-4 py-3 text-primary ring-2 ring-secondary transition focus:outline-none focus:ring-accent;
-  }
-
-  html.dark .input-base {
-    @apply bg-foreground/80;
-  }
-
-  .input-wrapper {
-    @apply space-y-2;
-  }
-
-  .label-input {
-    @apply text-sm font-semibold text-primary;
-  }
-
-  /* Error Message */
-  .error {
-    @apply flex items-center gap-3 rounded-lg border-l-4 border-red-500 bg-red-100 p-4 text-red-700;
-  }
-
-  html.dark .error {
-    @apply bg-red-900/30 border-red-600 text-red-400;
-  }
-
-  /* Button Styles */
-  .button-primary {
-    @apply flex items-center gap-3 rounded-lg bg-accent px-10 py-5 text-lg md:text-xl font-bold text-foreground shadow-card transition hover:-translate-y-1 hover:shadow-lg justify-center disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-
-  .button-secondary {
-    @apply flex items-center justify-center gap-2 rounded-lg border-2 border-secondary/20 px-4 py-3 font-semibold text-primary transition hover:border-accent hover:bg-foreground/50 hover:text-accent;
-  }
-
-  .button-danger {
-    @apply flex items-center gap-3 rounded-lg bg-red-500 px-8 py-4 text-lg font-bold text-white shadow-card transition hover:-translate-y-1 hover:shadow-lg;
-  }
-
-  /* Feature Card */
-  .feature-card {
-    @apply flex flex-col items-center gap-4 rounded-xl border-2 border-secondary/20 bg-foreground p-8 transition hover:border-accent hover:shadow-card;
-  }
-
-  /* Typography Components */
-  .section-title {
-    @apply text-3xl font-bold text-primary;
-  }
-
-  .description-text {
-    @apply text-lg text-secondary;
-  }
-
-  /* Animation Components - moved from utilities */
-  .animate-fade-in {
-    animation: fade-in 0.5s ease-out forwards;
-  }
-
-  .animate-scale-up {
-    animation: scale-up 0.6s ease-out forwards;
-  }
-
-  .animate-spin {
-    animation: spin 1s linear infinite;
-  }
-}
-
-/* ======================================================
-   Animations
+   Animations (keyframes only)
    ====================================================== */
 @keyframes fade-in {
   from {
@@ -223,7 +177,112 @@
 }
 
 /* ======================================================
+   Component Layer
+   Reusable UI patterns
+   ====================================================== */
+@layer components {
+
+  /* Logo Containers */
+  .logo-lg {
+    @apply rounded-2xl bg-accent p-5 shadow-card hover:-translate-y-1 hover:shadow-lg;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  }
+
+  .logo-md {
+    @apply rounded-lg bg-accent p-3 shadow-card;
+  }
+
+  /* Form Container */
+  .form-box {
+    @apply w-full max-w-xl rounded-2xl bg-foreground p-8 shadow-card;
+  }
+
+  /* Card with Hover Effects */
+  .card-hover {
+    @apply rounded-xl border-2 border-secondary/20 bg-foreground p-8 hover:border-accent hover:shadow-card;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  }
+
+  /* Input Styling with Dark Mode Support */
+  .input-base {
+    @apply w-full rounded-lg bg-foreground px-4 py-3 text-primary ring-2 ring-secondary focus:outline-none focus:ring-accent;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.15s ease;
+  }
+
+  html.dark .input-base {
+    @apply bg-foreground/80;
+  }
+
+  /* Input Wrapper & Label */
+  .input-wrapper {
+    @apply space-y-2;
+  }
+
+  .label-input {
+    @apply text-sm font-semibold text-primary;
+  }
+
+  /* Error Message with Dark Mode Support */
+  .error {
+    @apply flex items-center gap-3 rounded-lg border-l-4 border-red-500 bg-red-100 p-4 text-red-700;
+  }
+
+  html.dark .error {
+    @apply bg-red-900/30 border-red-600 text-red-400;
+  }
+
+  /* Button Styles */
+  .button-primary {
+    @apply flex items-center gap-3 rounded-lg bg-accent px-10 py-5 text-lg md:text-xl font-bold text-foreground shadow-card hover:-translate-y-1 hover:shadow-lg justify-center disabled:opacity-50 disabled:cursor-not-allowed;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .button-secondary {
+    @apply flex items-center justify-center gap-2 rounded-lg border-2 border-secondary/20 px-4 py-3 font-semibold text-primary hover:border-accent hover:bg-foreground/50 hover:text-accent;
+    transition: border-color 0.2s ease, background-color 0.3s ease, color 0.2s ease;
+  }
+
+  .button-danger {
+    @apply flex items-center gap-3 rounded-lg bg-red-500 px-8 py-4 text-lg font-bold text-white shadow-card hover:-translate-y-1 hover:shadow-lg;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  }
+
+  /* Feature Card */
+  .feature-card {
+    @apply flex flex-col items-center gap-4 rounded-xl border-2 border-secondary/20 bg-foreground p-8 hover:border-accent hover:shadow-card;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  }
+
+  /* Typography Components */
+  .section-title {
+    @apply text-3xl font-bold text-primary;
+  }
+
+  .description-text {
+    @apply text-lg text-secondary;
+  }
+
+  /* Animation Components - moved from utilities */
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+
+  .animate-scale-up {
+    animation: scale-up 0.6s ease-out forwards;
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  .page-transition {
+    animation: page-fade-in 0.3s ease-out;
+  }
+}
+
+/* ======================================================
    Utility Layer
+   Atomic helpers only
    ====================================================== */
 @layer utilities {
   .transition-width {
@@ -238,8 +297,16 @@
    ====================================================== */
 @media (prefers-reduced-motion: reduce) {
 
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
   .animate-fade-in,
-  .animate-scale-up {
-    animation: none;
+  .animate-scale-up,
+  .animate-spin {
+    animation: none !important;
   }
 }
