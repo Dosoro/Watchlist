@@ -8,6 +8,7 @@ import {
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 import { useAuth } from "./hooks/useAuth";
+import { GlobalHeader } from "./components/GlobalHeader.jsx"; // Add import
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
@@ -26,6 +27,7 @@ function App() {
     <ThemeProvider>
       <Router>
         <AuthProvider>
+          <GlobalHeader /> {/* Add global header */}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -38,7 +40,7 @@ function App() {
                   <SearchPage />
                 </ProtectedRoute>
               }
-            />{" "}
+            />
             <Route
               path="/watchlist"
               element={
@@ -46,7 +48,7 @@ function App() {
                   <WatchlistPage />
                 </ProtectedRoute>
               }
-            />{" "}
+            />
           </Routes>
           <AuthListener />
         </AuthProvider>

@@ -1,21 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
 import { useEffect, useState } from "react";
-import { useTheme } from "../hooks/useTheme.js";
-import {
-  IconArrowRight,
-  IconMovie,
-  IconLogout,
-  IconSun,
-  IconMoon,
-} from "@tabler/icons-react";
+import { IconArrowRight, IconMovie, IconLogout } from "@tabler/icons-react";
 
 const words = ["want to watch", "watched", "thought"];
 
 function HomePage() {
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useAuth();
-  const { isDark, setIsDark } = useTheme();
 
   const typingSpeed = 100;
   const pauseTime = 1200;
@@ -64,18 +56,6 @@ function HomePage() {
               You're logged in and ready to explore.
             </p>
           </div>
-          <div className="flex gap-4">
-            <button
-              onClick={() => setIsDark(!isDark)}
-              className="rounded-lg bg-foreground p-3 shadow-card transition hover:shadow-lg"
-            >
-              {isDark ? (
-                <IconSun className="h-6 w-6 text-accent" />
-              ) : (
-                <IconMoon className="h-6 w-6 text-accent" />
-              )}
-            </button>
-          </div>
 
           <button
             onClick={handleLogout}
@@ -92,19 +72,6 @@ function HomePage() {
   // If not logged in - show full hero page
   return (
     <div className="min-h-screen bg-background">
-      <div className="fixed top-6 right-6 z-50">
-        <button
-          onClick={() => setIsDark(!isDark)}
-          className="rounded-lg bg-foreground p-3 shadow-card transition hover:shadow-lg"
-          aria-label="Toggle dark mode"
-        >
-          {isDark ? (
-            <IconSun className="h-6 w-6 text-accent" />
-          ) : (
-            <IconMoon className="h-6 w-6 text-accent" />
-          )}
-        </button>
-      </div>
       <div className="flex min-h-screen flex-col items-center justify-center px-4 py-20 animate-fade-in">
         <div className="flex max-w-5xl flex-col items-center gap-16 text-center">
           {/* Logo */}
