@@ -20,7 +20,7 @@ import LoadingSpinner from "./components/common/Loading.jsx";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated ? children : <Navigate to="/authenticate" />;
 };
 
 // Page wrapper with fade animation
