@@ -10,7 +10,6 @@
 
 /* ======================================================
    Theme Tokens (Semantic layer)
-   Utilities consume THESE, not raw values
    ====================================================== */
 @theme {
   /* Colors */
@@ -29,13 +28,8 @@
 
 /* ======================================================
    Base Layer
-   Globals, tokens, browser behavior
    ====================================================== */
 @layer base {
-
-  /* --------------------------------------------------
-     Raw Color Tokens (never use directly)
-     -------------------------------------------------- */
   :root {
     --background: 39 44% 87%;
     --foreground: 37 17% 96%;
@@ -44,7 +38,6 @@
     --accent: 21 87% 55%;
   }
 
-  /* Dark mode - add to html.dark */
   html.dark {
     --background: 220 15% 10%;
     --foreground: 220 15% 22%;
@@ -53,9 +46,6 @@
     --accent: 21 87% 55%;
   }
 
-  /* --------------------------------------------------
-     Document layout sanity
-     -------------------------------------------------- */
   html,
   body,
   #root {
@@ -68,9 +58,6 @@
     scrollbar-width: thin;
   }
 
-  /* --------------------------------------------------
-     Typography defaults
-     -------------------------------------------------- */
   body,
   input,
   textarea,
@@ -83,9 +70,6 @@
     color: var(--color-primary);
   }
 
-  /* --------------------------------------------------
-     Scrollbars (WebKit)
-     -------------------------------------------------- */
   ::-webkit-scrollbar {
     width: 12px;
   }
@@ -104,9 +88,6 @@
     background-color: hsl(var(--primary) / 0.8);
   }
 
-  /* --------------------------------------------------
-     Text selection
-     -------------------------------------------------- */
   ::selection {
     background-color: hsl(var(--accent) / 0.5);
     color: hsl(var(--secondary));
@@ -114,59 +95,7 @@
 }
 
 /* ======================================================
-   Animations (keyframes only)
-   ====================================================== */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-out {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes scale-up {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes slide-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ======================================================
    Component Layer
-   Reusable UI patterns
    ====================================================== */
 @layer components {
 
@@ -189,7 +118,7 @@
     @apply rounded-xl border-2 border-secondary/20 bg-foreground p-8 transition hover:border-accent hover:shadow-card;
   }
 
-  /* Input Styling with Dark Mode Support */
+  /* Input Styling */
   .input-base {
     @apply w-full rounded-lg bg-foreground px-4 py-3 text-primary ring-2 ring-secondary transition focus:outline-none focus:ring-accent;
   }
@@ -198,7 +127,6 @@
     @apply bg-foreground/80;
   }
 
-  /* Input Wrapper & Label */
   .input-wrapper {
     @apply space-y-2;
   }
@@ -207,18 +135,13 @@
     @apply text-sm font-semibold text-primary;
   }
 
-  /* Error Message with Dark Mode Support */
+  /* Error Message */
   .error {
     @apply flex items-center gap-3 rounded-lg border-l-4 border-red-500 bg-red-100 p-4 text-red-700;
   }
 
   html.dark .error {
     @apply bg-red-900/30 border-red-600 text-red-400;
-  }
-
-  /* Password Toggle Button */
-  .password-toggle-btn {
-    @apply absolute right-3 top-1/2 -translate-y-1/2 text-secondary hover:text-accent transition cursor-pointer;
   }
 
   /* Button Styles */
@@ -228,6 +151,10 @@
 
   .button-secondary {
     @apply flex items-center justify-center gap-2 rounded-lg border-2 border-secondary/20 px-4 py-3 font-semibold text-primary transition hover:border-accent hover:bg-foreground/50 hover:text-accent;
+  }
+
+  .button-danger {
+    @apply flex items-center gap-3 rounded-lg bg-red-500 px-8 py-4 text-lg font-bold text-white shadow-card transition hover:-translate-y-1 hover:shadow-lg;
   }
 
   /* Feature Card */
@@ -243,29 +170,62 @@
   .description-text {
     @apply text-lg text-secondary;
   }
-}
 
-/* ======================================================
-   Utility Layer
-   Atomic helpers only
-   ====================================================== */
-@layer utilities {
+  /* Animation Components - moved from utilities */
   .animate-fade-in {
     animation: fade-in 0.5s ease-out forwards;
-  }
-
-  .animate-fade-out {
-    animation: fade-out 0.5s ease-in forwards;
   }
 
   .animate-scale-up {
     animation: scale-up 0.6s ease-out forwards;
   }
 
-  .animate-slide-in {
-    animation: slide-in 0.6s ease-out forwards;
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+}
+
+/* ======================================================
+   Animations
+   ====================================================== */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
 
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-up {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ======================================================
+   Utility Layer
+   ====================================================== */
+@layer utilities {
   .transition-width {
     transition-property: width;
     transition-duration: 300ms;
@@ -279,9 +239,7 @@
 @media (prefers-reduced-motion: reduce) {
 
   .animate-fade-in,
-  .animate-fade-out,
-  .animate-scale-up,
-  .animate-slide-in {
+  .animate-scale-up {
     animation: none;
   }
 }

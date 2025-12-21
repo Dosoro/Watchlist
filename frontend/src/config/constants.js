@@ -31,10 +31,51 @@ export const SIZES = {
   ICON_SMALL: "h-5 w-5",
 };
 
+// Validation Rules
+export const VALIDATION = {
+  PASSWORD_MIN_LENGTH: 6,
+  PASSWORD_MAX_LENGTH: 128,
+  EMAIL_REGEX: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+};
+
 // Messages
 export const MESSAGES = {
+  // Auth errors
   LOGIN_ERROR: "Login failed. Please try again.",
   REGISTER_ERROR: "Registration failed. Please try again.",
   NETWORK_ERROR: "Network error. Please check your connection.",
   SOMETHING_WRONG: "Something went wrong. Please try again.",
+
+  // Validation errors
+  PASSWORD_MISMATCH: "Passwords do not match",
+  PASSWORD_TOO_SHORT: `Password must be at least ${VALIDATION.PASSWORD_MIN_LENGTH} characters`,
+  PASSWORD_TOO_LONG: `Password cannot exceed ${VALIDATION.PASSWORD_MAX_LENGTH} characters`,
+  INVALID_EMAIL: "Please enter a valid email address",
+
+  // Specific auth errors (for backend mapping)
+  EMAIL_EXISTS: "An account with this email already exists",
+  INVALID_CREDENTIALS: "Invalid email or password",
+  SERVER_ERROR: "Server error. Please try again later",
 };
+
+// Feature Cards (for HomePage)
+export const FEATURE_CARDS = [
+  {
+    id: "discover",
+    icon: "search",
+    title: "Discover",
+    description: "Search millions of movies and shows instantly",
+  },
+  {
+    id: "organize",
+    icon: "list",
+    title: "Organize",
+    description: "Create and manage your personal watchlist",
+  },
+  {
+    id: "track",
+    icon: "chart",
+    title: "Track",
+    description: "Rate, review, and track what you've watched",
+  },
+];

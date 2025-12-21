@@ -16,6 +16,7 @@ import HomePage from "./pages/HomePage.jsx";
 import SearchPage from "./pages/SearchPage.jsx";
 import WatchlistPage from "./pages/WatchlistPage.jsx";
 import AuthListener from "./components/AuthListener.jsx";
+import LoadingSpinner from "./components/common/Loading.jsx";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -23,6 +24,11 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
+  const { isLoading } = useAuth();
+
+  if (isLoading) {
+    return <LoadingSpinner fullScreen={true} />;
+  }
   return (
     <ThemeProvider>
       <Router>
