@@ -1,21 +1,24 @@
-/* ======================================================
-   External Fonts
-   ====================================================== */
+/* ==============================================================================
+   EXTERNAL RESOURCES
+   ============================================================================== */
+
+/* Import Google Fonts - Roboto Mono for monospace styling */
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
-/* ======================================================
-   Tailwind Core (v4)
-   ====================================================== */
+/* Import Tailwind CSS core */
 @import "tailwindcss";
 
-/* ======================================================
-   View Transitions for Smooth Theme Changes
-   ====================================================== */
+/* ==============================================================================
+   VIEW TRANSITIONS
+   ============================================================================== */
+
+/* Smooth theme switching animations */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.4s;
 }
 
+/* Layer ordering for transitions */
 ::view-transition-old(root) {
   z-index: 1;
 }
@@ -24,79 +27,88 @@
   z-index: 2;
 }
 
-/* ======================================================
-   Theme Tokens (Semantic layer)
-   Utilities consume THESE, not raw values
-   ====================================================== */
+/* ==============================================================================
+   THEME TOKENS
+   Semantic variables that Tailwind utilities reference
+   ============================================================================== */
+
 @theme {
-  /* Colors */
+  /* Semantic color mappings */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-primary: hsl(var(--primary));
   --color-secondary: hsl(var(--secondary));
   --color-accent: hsl(var(--accent));
 
-  /* Typography */
+  /* Font families */
   --font-roboto: "Roboto Mono", monospace;
 
-  /* Effects */
+  /* Drop shadows */
   --shadow-card: 0 4px 8px -2px rgba(0, 0, 0, 0.25);
 }
 
-/* ======================================================
-   Base Layer
-   Globals, tokens, browser behavior
-   ====================================================== */
+/* ==============================================================================
+   BASE LAYER
+   Global styles, CSS variables, and browser defaults
+   ============================================================================== */
+
 @layer base {
+  /* ----------------------------------------------------------------------------
+     COLOR DEFINITIONS
+     Raw HSL values for light/dark themes
+     ---------------------------------------------------------------------------- */
 
-  /* --------------------------------------------------
-     Raw Color Tokens
-     -------------------------------------------------- */
+  /* Light mode palette */
   :root {
-    --background: 39 44% 87%;
-    --foreground: 37 17% 96%;
-    --primary: 37 17% 25%;
-    --secondary: 37 17% 55%;
-    --accent: 21 87% 55%;
+    --background: 39 44% 87%; /* Warm light gray background */
+    --foreground: 37 17% 96%; /* Off-white surface color */
+    --primary: 37 17% 25%; /* Dark text color */
+    --secondary: 37 17% 55%; /* Muted text color */
+    --accent: 21 87% 55%; /* Orange accent */
   }
 
-  /* Dark mode */
+  /* Dark mode palette */
   html.dark {
-    --background: 220 15% 10%;
-    --foreground: 220 15% 22%;
-    --primary: 220 13% 95%;
-    --secondary: 220 13% 70%;
-    --accent: 21 87% 55%;
+    --background: 220 15% 10%; /* Deep blue-gray background */
+    --foreground: 220 15% 22%; /* Lighter surface color */
+    --primary: 220 13% 95%; /* Light text color */
+    --secondary: 220 13% 70%; /* Muted light text */
+    --accent: 21 87% 55%; /* Orange accent (same) */
   }
 
-  /* --------------------------------------------------
-     Document layout sanity
-     -------------------------------------------------- */
+  /* ----------------------------------------------------------------------------
+     LAYOUT FUNDAMENTALS
+     ---------------------------------------------------------------------------- */
+
+  /* Full-height layout for root elements */
   html,
   body,
   #root {
     height: 100%;
   }
 
+  /* Smooth scrolling with custom scrollbar */
   html {
     @apply scroll-smooth;
     scrollbar-color: hsl(var(--primary)) hsl(var(--background));
     scrollbar-width: thin;
   }
 
-  /* --------------------------------------------------
-     Smooth theme transitions for ALL elements
-     -------------------------------------------------- */
+  /* ----------------------------------------------------------------------------
+     THEME TRANSITION BEHAVIOR
+     Smooth color changes when switching light/dark mode
+     ---------------------------------------------------------------------------- */
+
   * {
-    transition: background-color 0.3s ease,
-      color 0.3s ease,
-      border-color 0.3s ease,
-      box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease,
+      border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
-  /* --------------------------------------------------
-     Typography defaults
-     -------------------------------------------------- */
+  /* ----------------------------------------------------------------------------
+     TYPOGRAPHY DEFAULTS
+     ---------------------------------------------------------------------------- */
+
+  /* Apply monospace font to all interactive elements */
   body,
   input,
   textarea,
@@ -104,14 +116,16 @@
     font-family: var(--font-roboto);
   }
 
+  /* Default body styling */
   body {
     background-color: var(--color-background);
     color: var(--color-primary);
   }
 
-  /* --------------------------------------------------
-     Scrollbars (WebKit)
-     -------------------------------------------------- */
+  /* ----------------------------------------------------------------------------
+     CUSTOM SCROLLBARS (WebKit browsers)
+     ---------------------------------------------------------------------------- */
+
   ::-webkit-scrollbar {
     width: 12px;
   }
@@ -130,161 +144,232 @@
     background-color: hsl(var(--primary) / 0.8);
   }
 
-  /* --------------------------------------------------
-     Text selection
-     -------------------------------------------------- */
+  /* ----------------------------------------------------------------------------
+     TEXT SELECTION STYLING
+     ---------------------------------------------------------------------------- */
+
   ::selection {
     background-color: hsl(var(--accent) / 0.5);
     color: hsl(var(--secondary));
   }
 }
 
-/* ======================================================
-   Animations (keyframes only)
-   ====================================================== */
+/* ==============================================================================
+   KEYFRAME ANIMATIONS
+   Reusable animation definitions
+   ============================================================================== */
+
+/* Fade in with slight upward movement */
 @keyframes fade-in {
   from {
     opacity: 0;
     transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
+/* Scale up from 95% to 100% with fade */
 @keyframes scale-up {
   from {
     opacity: 0;
     transform: scale(0.95);
   }
-
   to {
     opacity: 1;
     transform: scale(1);
   }
 }
 
+/* Continuous rotation */
 @keyframes spin {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
 }
 
-/* ======================================================
-   Component Layer
-   Reusable UI patterns
-   ====================================================== */
-@layer components {
+/* ==============================================================================
+   COMPONENTS LAYER
+   Reusable UI component classes
+   ============================================================================== */
 
-  /* Logo Containers */
+@layer components {
+  /* ----------------------------------------------------------------------------
+     LOGO COMPONENTS
+     ---------------------------------------------------------------------------- */
+
+  /* Large logo with hover lift effect */
   .logo-lg {
-    @apply rounded-2xl bg-accent p-5 shadow-card hover:-translate-y-1 hover:shadow-lg;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    @apply rounded-2xl bg-accent p-5 shadow-card 
+           hover:-translate-y-1 hover:shadow-lg;
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+      background-color 0.3s ease;
   }
 
+  /* Medium-sized logo */
   .logo-md {
     @apply rounded-lg bg-accent p-3 shadow-card;
   }
 
-  /* Form Container */
+  /* ----------------------------------------------------------------------------
+     CONTAINER COMPONENTS
+     ---------------------------------------------------------------------------- */
+
+  /* Form wrapper with max width */
   .form-box {
     @apply w-full max-w-xl rounded-2xl bg-foreground p-8 shadow-card;
   }
 
-  /* Card with Hover Effects */
+  /* Card with accent border on hover */
   .card-hover {
-    @apply rounded-xl border-2 border-secondary/20 bg-foreground p-8 hover:border-accent hover:shadow-card;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    @apply rounded-xl border-2 border-secondary/20 bg-foreground p-8 
+           hover:border-accent hover:shadow-card;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease,
+      background-color 0.3s ease;
   }
 
-  /* Input Styling with Dark Mode Support */
+  /* Feature card with centered content */
+  .feature-card {
+    @apply flex flex-col items-center gap-4 rounded-xl 
+           border-2 border-secondary/20 bg-foreground p-8 
+           hover:border-accent hover:shadow-card;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease,
+      background-color 0.3s ease;
+  }
+
+  /* ----------------------------------------------------------------------------
+     FORM INPUTS
+     ---------------------------------------------------------------------------- */
+
+  /* Base input styling with focus ring */
   .input-base {
-    @apply w-full rounded-lg bg-foreground px-4 py-3 text-primary ring-2 ring-secondary focus:outline-none focus:ring-accent;
-    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.15s ease;
+    @apply w-full rounded-lg bg-foreground px-4 py-3 text-primary 
+           ring-2 ring-secondary 
+           focus:outline-none focus:ring-accent;
+    transition: background-color 0.3s ease, color 0.3s ease,
+      box-shadow 0.15s ease;
   }
 
+  /* Darker input background in dark mode */
   html.dark .input-base {
     @apply bg-foreground/80;
   }
 
-  /* Input Wrapper & Label */
+  /* Input group wrapper */
   .input-wrapper {
     @apply space-y-2;
   }
 
+  /* Input label styling */
   .label-input {
     @apply text-sm font-semibold text-primary;
   }
 
-  /* Error Message with Dark Mode Support */
+  /* ----------------------------------------------------------------------------
+     ERROR MESSAGES
+     ---------------------------------------------------------------------------- */
+
+  /* Error alert box with left border accent */
   .error {
-    @apply flex items-center gap-3 rounded-lg border-l-4 border-red-500 bg-red-100 p-4 text-red-700;
+    @apply flex items-center gap-3 rounded-lg 
+           border-l-4 border-red-500 
+           bg-red-100 p-4 text-red-700;
   }
 
+  /* Dark mode error styling */
   html.dark .error {
     @apply bg-red-900/30 border-red-600 text-red-400;
   }
 
-  /* Button Styles */
+  /* ----------------------------------------------------------------------------
+     BUTTONS
+     ---------------------------------------------------------------------------- */
+
+  /* Primary action button with lift effect */
   .button-primary {
-    @apply flex items-center gap-3 rounded-lg bg-accent px-10 py-5 text-lg md:text-xl font-bold text-foreground shadow-card hover:-translate-y-1 hover:shadow-lg justify-center disabled:opacity-50 disabled:cursor-not-allowed;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+    @apply flex items-center gap-3 rounded-lg 
+           bg-accent px-10 py-5 
+           text-lg md:text-xl font-bold text-foreground 
+           shadow-card 
+           hover:-translate-y-1 hover:shadow-lg 
+           justify-center 
+           disabled:opacity-50 disabled:cursor-not-allowed;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease,
+      background-color 0.3s ease, color 0.3s ease;
   }
 
+  /* Secondary button with border highlight on hover */
   .button-secondary {
-    @apply flex items-center justify-center gap-2 rounded-lg border-2 border-secondary/20 px-4 py-3 font-semibold text-primary hover:border-accent hover:bg-foreground/50 hover:text-accent;
-    transition: border-color 0.2s ease, background-color 0.3s ease, color 0.2s ease;
+    @apply flex items-center justify-center gap-2 rounded-lg 
+           border-2 border-secondary/20 px-4 py-3 
+           font-semibold text-primary 
+           hover:border-accent hover:bg-foreground/50 hover:text-accent;
+    transition: border-color 0.2s ease, background-color 0.3s ease,
+      color 0.2s ease;
   }
 
+  /* Danger/destructive action button */
   .button-danger {
-    @apply flex items-center gap-3 rounded-lg bg-red-500 px-8 py-4 text-lg font-bold text-white shadow-card hover:-translate-y-1 hover:shadow-lg;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    @apply flex items-center gap-3 rounded-lg 
+           bg-red-500 px-8 py-4 
+           text-lg font-bold text-white 
+           shadow-card 
+           hover:-translate-y-1 hover:shadow-lg;
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+      background-color 0.3s ease;
   }
 
-  /* Feature Card */
-  .feature-card {
-    @apply flex flex-col items-center gap-4 rounded-xl border-2 border-secondary/20 bg-foreground p-8 hover:border-accent hover:shadow-card;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
-  }
+  /* ----------------------------------------------------------------------------
+     TYPOGRAPHY COMPONENTS
+     ---------------------------------------------------------------------------- */
 
-  /* Typography Components */
+  /* Section heading */
   .section-title {
     @apply text-3xl font-bold text-primary;
   }
 
+  /* Descriptive paragraph text */
   .description-text {
     @apply text-lg text-secondary;
   }
 
-  /* Animation Components - moved from utilities */
+  /* ----------------------------------------------------------------------------
+     ANIMATION UTILITIES
+     ---------------------------------------------------------------------------- */
+
+  /* Fade in animation */
   .animate-fade-in {
     animation: fade-in 0.5s ease-out forwards;
   }
 
+  /* Scale up animation */
   .animate-scale-up {
     animation: scale-up 0.6s ease-out forwards;
   }
 
+  /* Spinning loader animation */
   .animate-spin {
     animation: spin 1s linear infinite;
   }
 
+  /* Page transition animation */
   .page-transition {
     animation: page-fade-in 0.3s ease-out;
   }
 }
 
-/* ======================================================
-   Utility Layer
-   Atomic helpers only
-   ====================================================== */
+/* ==============================================================================
+   UTILITIES LAYER
+   Single-purpose utility classes
+   ============================================================================== */
+
 @layer utilities {
+  /* Smooth width transitions */
   .transition-width {
     transition-property: width;
     transition-duration: 300ms;
@@ -292,11 +377,14 @@
   }
 }
 
-/* ======================================================
-   Accessibility
-   ====================================================== */
-@media (prefers-reduced-motion: reduce) {
+/* ==============================================================================
+   ACCESSIBILITY
+   Respect user motion preferences
+   ============================================================================== */
 
+/* Disable all animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  /* Remove transitions and animations */
   *,
   *::before,
   *::after {
@@ -304,6 +392,7 @@
     animation: none !important;
   }
 
+  /* Disable specific animation classes */
   .animate-fade-in,
   .animate-scale-up,
   .animate-spin {
