@@ -79,3 +79,39 @@ export const FEATURE_CARDS = [
     description: "Rate, review, and track what you've watched",
   },
 ];
+
+// Mock Daata for Development (Dashboard)
+export const MOCK_USER = {
+  email: "john@example.com",
+  username: "john",
+};
+
+export const MOCK_STATS = {
+  total: 12,
+  watched: 7,
+  unwatched: 5,
+};
+
+export const MOCK_RECENT_ITEMS = [
+  {
+    id: 1,
+    title: "Inception",
+    poster: "https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",
+    watched: true,
+    rating: 9,
+  },
+  {
+    id: 2,
+    title: "The Dark Knight",
+    poster: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    watched: true,
+    rating: 9,
+  },
+  {
+    id: 3,
+    title: "Interstellar",
+    poster: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    watched: false,
+    rating: null,
+  },
+];
